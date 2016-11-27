@@ -1,0 +1,36 @@
+nginx:
+    build: ./nginx
+    links:
+        - web1:web1
+        - web2:web2
+        - web3:web3
+    ports:
+        - "17320:80"
+web1:
+    build: ./flask
+    ports:
+        - "17330"
+    volumes:
+        - ./flask:/code
+    links:
+        - redis
+web2:
+    build: ./flask
+    ports:
+        - "17330"
+    volumes:
+        - ./flask:/code
+    links:
+        - redis
+web3:
+    build: ./flask
+    ports:
+        - "17330"
+    volumes:
+        - ./flask:/code
+    links:
+        - redis
+redis:
+    image: redis
+    ports:
+        - "6379"
